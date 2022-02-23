@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		734A06CD27B0D3B200D70F6F /* extensionUIButtonInteface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A06CC27B0D3B200D70F6F /* extensionUIButtonInteface.swift */; };
+		7353BED527C6F2A9006A9FBA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7353BED427C6F2A9006A9FBA /* Info.plist */; };
 		73BD2BF927AD6A3E00E9FAAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BD2BF827AD6A3E00E9FAAE /* AppDelegate.swift */; };
 		73BD2C0227AD6A3F00E9FAAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73BD2C0127AD6A3F00E9FAAE /* Assets.xcassets */; };
 		73BD2C0527AD6A3F00E9FAAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73BD2C0327AD6A3F00E9FAAE /* LaunchScreen.storyboard */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		734A06CC27B0D3B200D70F6F /* extensionUIButtonInteface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUIButtonInteface.swift; sourceTree = "<group>"; };
+		7353BED427C6F2A9006A9FBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = IOSCalculator/Info.plist; sourceTree = SOURCE_ROOT; };
 		73BD2BF527AD6A3E00E9FAAE /* IOSCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73BD2BF827AD6A3E00E9FAAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73BD2C0127AD6A3F00E9FAAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,7 +48,6 @@
 		73BD2C1627AD6A4000E9FAAE /* IOSCalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOSCalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73BD2C5127AD73B100E9FAAE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		73BD2C5227AD73B100E9FAAE /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
-		73BD2C6C27ADA4FD00E9FAAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../../../../.Trash/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +121,7 @@
 		73BD2C3427AD6BC600E9FAAE /* supportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				73BD2C6C27ADA4FD00E9FAAE /* Info.plist */,
+				7353BED427C6F2A9006A9FBA /* Info.plist */,
 			);
 			path = supportingFiles;
 			sourceTree = "<group>";
@@ -282,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7353BED527C6F2A9006A9FBA /* Info.plist in Resources */,
 				73BD2C0527AD6A3F00E9FAAE /* LaunchScreen.storyboard in Resources */,
 				73BD2C0227AD6A3F00E9FAAE /* Assets.xcassets in Resources */,
 				73BD2C5427AD73B100E9FAAE /* HomeViewController.xib in Resources */,
@@ -482,7 +484,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5DJ695UZH2;
-				INFOPLIST_FILE = "$(SRCROOT)/../../../.Trash/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/IOSCalculator/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -502,7 +504,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5DJ695UZH2;
-				INFOPLIST_FILE = "$(SRCROOT)/../../../.Trash/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/IOSCalculator/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
