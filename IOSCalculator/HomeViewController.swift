@@ -7,11 +7,18 @@
 
 import UIKit
 
+extension HomeViewController: View{
+    func display(result: String) {
+        resultLabel.text = result
+    }
+}
+
 class HomeViewController: UIViewController {
     
+
     //MARK: Number Button Declaration
-    
-    
+
+    private var presenter: Presenter
     
     @IBOutlet weak var number0: UIButton!
     @IBOutlet weak var number1: UIButton!
@@ -105,7 +112,10 @@ class HomeViewController: UIViewController {
     
     //MARK: inicialization
     init() {
+        presenter = NicerCalculatorPresenter()
+        
         super.init(nibName: nil, bundle: nil)
+        presenter.view = self
     }
     
     required init?(coder: NSCoder) {
@@ -115,6 +125,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         
         print("didLayoutSubView\(number0.bounds.height)")
         
@@ -145,6 +156,7 @@ class HomeViewController: UIViewController {
     //MARK: lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         print("viewDidLoad\(number0.bounds.height)")
         
@@ -263,6 +275,10 @@ class HomeViewController: UIViewController {
     
     @IBAction func numbreAction(_ sender: UIButton) {
         
+        
+        
+        presenter.handleNumberSelection(number: sender.tag)
+        
         ACButton.setTitle("C", for: .normal)
         var currentTemp = auxTotalFormatter.string(from: NSNumber(value: temp))!
         if !isAnOperationSelecter && currentTemp.count >= maxLabelLenght{
@@ -284,8 +300,8 @@ class HomeViewController: UIViewController {
             thereAreSelectedDecimals = false
         }
         
-        let number = sender.tag
-        temp = Double(currentTemp + String(number))!
+        let TouchedNumber = sender.tag
+        temp = Double(currentTemp + String(TouchedNumber))!
         resultLabel.text =  printFormatter.string(for: NSNumber(value: temp))
         
         selectVisualOperator()
