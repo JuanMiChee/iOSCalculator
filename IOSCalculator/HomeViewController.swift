@@ -8,6 +8,10 @@
 import UIKit
 
 extension HomeViewController: View{
+    func displayACTittle(title: String) {
+        ACButton.setTitle(title, for: .normal)
+    }
+    
     func display(result: String) {
         resultLabel.text = result
     }
@@ -30,7 +34,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var number7: UIButton!
     @IBOutlet weak var number8: UIButton!
     @IBOutlet weak var number9: UIButton!
-    
     @IBOutlet weak var resultLabel: UILabel!
     
     
@@ -49,14 +52,13 @@ class HomeViewController: UIViewController {
     private var total: Double = 0
     private var temp: Double = 0
     private var isAnOperationSelecter: Bool = false
-    private var thereAreSelectedDecimals: Bool = false
+    //private var thereAreSelectedDecimals: Bool = false
     private var operation: operationType = .none
     
     private let whatsYourDecimalSeparator = Locale.current.decimalSeparator!
     private let maxLabelLenght = 9
     private let kTotal = "total"
-    //private let maxNumberOfDecimalAllowed : Double = 999999999
-    //private let minNumberOFDecimalAllowed : Double = 0.00000001
+
     
     private enum operationType{
         case none, sumatory, substraction, multiplication, division, percent
@@ -112,7 +114,7 @@ class HomeViewController: UIViewController {
     
     //MARK: inicialization
     init() {
-        presenter = NicerCalculatorPresenter()
+        presenter = CalculatorPresenter()
         
         super.init(nibName: nil, bundle: nil)
         presenter.view = self
@@ -122,12 +124,8 @@ class HomeViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        
-        print("didLayoutSubView\(number0.bounds.height)")
         
         number0.round()
         number1.round()
@@ -157,176 +155,69 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         print("viewDidLoad\(number0.bounds.height)")
-        
-        
 
         decimalButton.setTitle(whatsYourDecimalSeparator, for: .normal)
         total = UserDefaults.standard.double(forKey: kTotal)
-        
         result()
     }
     
     
         //MARK: buttonActions
     @IBAction func sumatoryButtonAction(_ sender: UIButton) {
-        
-        if operation != .none{
-            result()
-        }
-        
-        isAnOperationSelecter = true
-        operation = .sumatory
-        sender.selectOperation(_selected: true)
-        
+        presenter.handleSumatoryButton(number: sender.tag)
+        sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
     
     @IBAction func subtractionButtonAction(_ sender: UIButton) {
-        
-        if operation != .none{
-            result()
-        }
-        
-        isAnOperationSelecter = true
-        operation = .substraction
-        sender.selectOperation(_selected: true)
-        
+        presenter.handleSubtractionButton(number: sender.tag)
+        sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
     
     @IBAction func multiplicationButtonAction(_ sender: UIButton) {
-        
-        if operation != .none{
-            result()
-        }
-        
-        isAnOperationSelecter = true
-        operation = .multiplication
-        sender.selectOperation(_selected: true)
-        
+        presenter.handleMultiplicationButton(number: sender.tag)
+        sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
     
     @IBAction func divisionButtonAction(_ sender: UIButton) {
-        
-        if operation != .none{
-            result()
-        }
-        
-        isAnOperationSelecter = true
-        operation = .division
-        sender.selectOperation(_selected: true)
-        
+        sender.replaceBackgroundColor(_selected: true)
+        presenter.handleDivisionButton(number: sender.tag)
         sender.shine()
     }
     
     @IBAction func equalsButtonAction(_ sender: UIButton) {
-       // if operation != .none{
-            result()
-        //}
-        
+        presenter.handleEqualsButton(number: sender.tag)
         sender.shine()
     }
     
     @IBAction func perecentageButtonAction(_ sender: UIButton) {
-        
-        if operation != .percent{
-            result()
-        }
-        isAnOperationSelecter = true
-        operation = .percent
-            result()
-        
+        presenter.handlePercentageButton(number: sender.tag)
         sender.shine()
     }
     @IBAction func moreOrLessButtonAction(_ sender: UIButton) {
-        temp = temp * (-1)
-        resultLabel.text = printFormatter.string(from: NSNumber(value: temp))
+        presenter.handleMoreOrLessButton(number: sender.tag)
         sender.shine()
     }
     @IBAction func ACButtonAction(_ sender: UIButton) {
-        clear()
+        presenter.handleACButton(number: sender.tag)
         sender.shine()
+        
     }
     
     @IBAction func decimalAction(_ sender: UIButton) {
-        
-        let currentTemp = auxTotalFormatter.string(from: NSNumber(value: temp))!
-        if !isAnOperationSelecter && currentTemp.count >= maxLabelLenght{
-            return
-        }
-        
-        let lastLabelCaracter = resultLabel.text?.last
-        let lastLabelCaracterAsString = String(lastLabelCaracter!)
-        
-        if lastLabelCaracterAsString == whatsYourDecimalSeparator{
-            
-        }else{
-            resultLabel.text = resultLabel.text! + whatsYourDecimalSeparator
-        }
-        thereAreSelectedDecimals = true
-        
-        selectVisualOperator()
-        
+        presenter.handleDecimalSelection(mainLabelText: resultLabel.text)
         sender.shine()
     }
     
     @IBAction func numbreAction(_ sender: UIButton) {
-        
-        
-        
         presenter.handleNumberSelection(number: sender.tag)
-        
-        ACButton.setTitle("C", for: .normal)
-        var currentTemp = auxTotalFormatter.string(from: NSNumber(value: temp))!
-        if !isAnOperationSelecter && currentTemp.count >= maxLabelLenght{
-            return
-        }
-        
-        currentTemp = auxFormatter.string(from: NSNumber(value: temp))!
-        
-        // ya se selecciono una operacion
-        if isAnOperationSelecter{
-            total = total == 0 ? temp : total
-            resultLabel.text = ""
-            currentTemp = ""
-            isAnOperationSelecter = false
-        }
-        
-        if thereAreSelectedDecimals {
-            currentTemp = "\(currentTemp)\(whatsYourDecimalSeparator)"
-            thereAreSelectedDecimals = false
-        }
-        
-        let TouchedNumber = sender.tag
-        temp = Double(currentTemp + String(TouchedNumber))!
-        resultLabel.text =  printFormatter.string(for: NSNumber(value: temp))
-        
-        selectVisualOperator()
-        
         sender.shine()
-        print(sender.tag)
-    }
-    
-    
-    
-    
-    private func clear(){
-        operation = .none
-        //ACButton.setTitle("AC", for: .normal)
-        //if temp != 0{
-            temp = 0
-            resultLabel.text = "0"
-       // }else{
-            total = 0
-            result()
-        //}
     }
     
     private func result(){
-        
         switch operation {
         
         case .none:
@@ -364,46 +255,46 @@ class HomeViewController: UIViewController {
         print("TOTAL:\(total)")
     }
     
-    private func selectVisualOperator(){
+    func selectVisualOperator(){
         if !isAnOperationSelecter{
             //no estamos operando
-            sumatoryButton.selectOperation(_selected: false)
-            subtractionButton.selectOperation(_selected: false)
-            multiplicationButton.selectOperation(_selected: false)
-            divisionButton.selectOperation(_selected: false)
+            sumatoryButton.replaceBackgroundColor(_selected: false)
+            subtractionButton.replaceBackgroundColor(_selected: false)
+            multiplicationButton.replaceBackgroundColor(_selected: false)
+            divisionButton.replaceBackgroundColor(_selected: false)
             
         }else{
             switch operation {
             
             case .none, .percent:
-                sumatoryButton.selectOperation(_selected: false)
-                subtractionButton.selectOperation(_selected: false)
-                multiplicationButton.selectOperation(_selected: false)
-                divisionButton.selectOperation(_selected: false)
+                sumatoryButton.replaceBackgroundColor(_selected: false)
+                subtractionButton.replaceBackgroundColor(_selected: false)
+                multiplicationButton.replaceBackgroundColor(_selected: false)
+                divisionButton.replaceBackgroundColor(_selected: false)
                 break
             case .sumatory:
-                sumatoryButton.selectOperation(_selected: true)
-                subtractionButton.selectOperation(_selected: false)
-                multiplicationButton.selectOperation(_selected: false)
-                divisionButton.selectOperation(_selected: false)
+                sumatoryButton.replaceBackgroundColor(_selected: true)
+                subtractionButton.replaceBackgroundColor(_selected: false)
+                multiplicationButton.replaceBackgroundColor(_selected: false)
+                divisionButton.replaceBackgroundColor(_selected: false)
                 break
             case .substraction:
-                sumatoryButton.selectOperation(_selected: false)
-                subtractionButton.selectOperation(_selected: true)
-                multiplicationButton.selectOperation(_selected: false)
-                divisionButton.selectOperation(_selected: false)
+                sumatoryButton.replaceBackgroundColor(_selected: false)
+                subtractionButton.replaceBackgroundColor(_selected: true)
+                multiplicationButton.replaceBackgroundColor(_selected: false)
+                divisionButton.replaceBackgroundColor(_selected: false)
                 break
             case .multiplication:
-                sumatoryButton.selectOperation(_selected: false)
-                subtractionButton.selectOperation(_selected: false)
-                multiplicationButton.selectOperation(_selected: true)
-                divisionButton.selectOperation(_selected: false)
+                sumatoryButton.replaceBackgroundColor(_selected: false)
+                subtractionButton.replaceBackgroundColor(_selected: false)
+                multiplicationButton.replaceBackgroundColor(_selected: true)
+                divisionButton.replaceBackgroundColor(_selected: false)
                 break
             case .division:
-                sumatoryButton.selectOperation(_selected: false)
-                subtractionButton.selectOperation(_selected: false)
-                multiplicationButton.selectOperation(_selected: false)
-                divisionButton.selectOperation(_selected: true)
+                sumatoryButton.replaceBackgroundColor(_selected: false)
+                subtractionButton.replaceBackgroundColor(_selected: false)
+                multiplicationButton.replaceBackgroundColor(_selected: false)
+                divisionButton.replaceBackgroundColor(_selected: true)
                 break
             }
         }
