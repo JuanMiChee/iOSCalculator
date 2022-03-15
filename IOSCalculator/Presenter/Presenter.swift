@@ -1,14 +1,4 @@
-
-
-
-
 import Foundation
-protocol View: AnyObject {
-    func display(result: String)
-    func selectVisualOperator()
-    func displayACTittle(title: String)
-
-}
 
 protocol Presenter {
     var view: View? { get set }
@@ -25,15 +15,7 @@ protocol Presenter {
     func handleSumatoryButton(number: Int)
 }
 
-class CalculatorPresenter: Presenter {
-    
-    
-    
-    
-    
-    
-    
-    
+final class CalculatorPresenter: Presenter {
     
     private let auxFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
