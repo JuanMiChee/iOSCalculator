@@ -163,32 +163,39 @@ class HomeViewController: UIViewController {
     }
     
     
+    var falseIndicator = false
+    
         //MARK: buttonActions
     @IBAction func sumatoryButtonAction(_ sender: UIButton) {
+        sumatoryButton.isEnabled = falseIndicator
         presenter.handleSumatoryButton(number: sender.tag)
         sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
     
     @IBAction func subtractionButtonAction(_ sender: UIButton) {
+        subtractionButton.isEnabled = falseIndicator
         presenter.handleSubtractionButton(number: sender.tag)
         sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
     
     @IBAction func multiplicationButtonAction(_ sender: UIButton) {
+        multiplicationButton.isEnabled = falseIndicator
         presenter.handleMultiplicationButton(number: sender.tag)
         sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
     
     @IBAction func divisionButtonAction(_ sender: UIButton) {
+        divisionButton.isEnabled = falseIndicator
         sender.replaceBackgroundColor(_selected: true)
         presenter.handleDivisionButton(number: sender.tag)
         sender.shine()
     }
     
     @IBAction func equalsButtonAction(_ sender: UIButton) {
+        equalsButton.isEnabled = falseIndicator
         presenter.handleEqualsButton(number: sender.tag)
         sender.shine()
     }
@@ -213,6 +220,12 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func numbreAction(_ sender: UIButton) {
+        sumatoryButton.isEnabled = true
+        subtractionButton.isEnabled = true
+        multiplicationButton.isEnabled = true
+        divisionButton.isEnabled = true
+        equalsButton.isEnabled = true
+        
         presenter.handleNumberSelection(number: sender.tag)
         sender.shine()
     }
