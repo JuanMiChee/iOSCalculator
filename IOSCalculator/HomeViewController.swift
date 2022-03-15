@@ -114,7 +114,8 @@ class HomeViewController: UIViewController {
     
     //MARK: inicialization
     init() {
-        presenter = CalculatorPresenter()
+        let calculateResultUsecase = CalculateResult()
+        presenter = CalculatorPresenter(calculateResult: calculateResultUsecase)
         
         super.init(nibName: nil, bundle: nil)
         presenter.view = self
