@@ -18,6 +18,8 @@
 		73BD2C5B27AD968E00E9FAAE /* IOSCalculatorTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 73BD2C0B27AD6A3F00E9FAAE /* IOSCalculatorTests.xctest */; };
 		73BD2C5C27AD969100E9FAAE /* IOSCalculatorUITests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 73BD2C1627AD6A4000E9FAAE /* IOSCalculatorUITests.xctest */; };
 		99799F0927E045F1002A2CEC /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99799F0827E045F1002A2CEC /* View.swift */; };
+		99799F0C27E0492E002A2CEC /* CalculateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99799F0B27E0492E002A2CEC /* CalculateResult.swift */; };
+		99799F0F27E04995002A2CEC /* OperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99799F0E27E04995002A2CEC /* OperationType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		73BD2C5127AD73B100E9FAAE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		73BD2C5227AD73B100E9FAAE /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		99799F0827E045F1002A2CEC /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		99799F0B27E0492E002A2CEC /* CalculateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateResult.swift; sourceTree = "<group>"; };
+		99799F0E27E04995002A2CEC /* OperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 		73BD2BF727AD6A3E00E9FAAE /* IOSCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				99799F0D27E0498A002A2CEC /* Model */,
+				99799F0A27E04913002A2CEC /* Usecases */,
 				7356CF4327D808EA00C5ECC5 /* Presenter */,
 				734A06CC27B0D3B200D70F6F /* extensionUIButtonInteface.swift */,
 				73BD2C5127AD73B100E9FAAE /* HomeViewController.swift */,
@@ -193,6 +199,22 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		99799F0A27E04913002A2CEC /* Usecases */ = {
+			isa = PBXGroup;
+			children = (
+				99799F0B27E0492E002A2CEC /* CalculateResult.swift */,
+			);
+			path = Usecases;
+			sourceTree = "<group>";
+		};
+		99799F0D27E0498A002A2CEC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				99799F0E27E04995002A2CEC /* OperationType.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -256,7 +278,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					73BD2BF427AD6A3E00E9FAAE = {
 						CreatedOnToolsVersion = 12.0.1;
@@ -326,8 +348,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				73BD2BF927AD6A3E00E9FAAE /* AppDelegate.swift in Sources */,
+				99799F0C27E0492E002A2CEC /* CalculateResult.swift in Sources */,
 				734A06CD27B0D3B200D70F6F /* extensionUIButtonInteface.swift in Sources */,
 				99799F0927E045F1002A2CEC /* View.swift in Sources */,
+				99799F0F27E04995002A2CEC /* OperationType.swift in Sources */,
 				7356CF4527D8091D00C5ECC5 /* Presenter.swift in Sources */,
 				73BD2C5327AD73B100E9FAAE /* HomeViewController.swift in Sources */,
 			);
@@ -499,7 +523,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5DJ695UZH2;
 				INFOPLIST_FILE = "$(SRCROOT)/IOSCalculator/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -519,7 +543,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5DJ695UZH2;
 				INFOPLIST_FILE = "$(SRCROOT)/IOSCalculator/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

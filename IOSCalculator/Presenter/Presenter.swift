@@ -64,10 +64,8 @@ final class CalculatorPresenter: Presenter {
     }()
     
     weak var view: View?
-    
-    private enum operationType{
-        case none, sumatory, substraction, multiplication, division, percent
-    }
+    private let calculateResult: CalculateResultProtocol
+
     
     private var temp: Double = 0
     private var isAnOperationSelecter: Bool = false
@@ -75,34 +73,17 @@ final class CalculatorPresenter: Presenter {
     private var total: Double = 0
     private var thereAreSelectedDecimals: Bool = false
     private let whatsYourDecimalSeparator = Locale.current.decimalSeparator!
-    private var operation: operationType = .none
-    
+    private var operation: OperationType = .none
+
+    init(calculateResult: CalculateResultProtocol) {
+        self.calculateResult = calculateResult
+    }
+
     private func result(){
         
-        switch operation {
+        let result = calculateResult.execute(operationType: operation, temp: temp)
         
-        case .none:
-            //no hacer nada
-            break
-        case .sumatory:
-            total = total + temp
-            break
-        case .substraction:
-            total = total - temp
-            break
-        case .multiplication:
-            total = total * temp
-            break
-        case .division:
-            total = total / temp
-            break
-        case .percent:
-            temp = temp / 100
-            total = temp
-            break
-        }
-        
-        if let currentTotal = auxTotalFormatter.string(from: NSNumber(value: total)), currentTotal.count > maxLabelLenght{
+        if let currentTotal = auxTotalFormatter.string(from: NSNumber(value: result)), currentTotal.count > maxLabelLenght{
             view?.display(result: printScientificFormatter.string(from: NSNumber(value: total))!)
         }else{
             view?.display(result:printFormatter.string(from: NSNumber(value: total))!)
