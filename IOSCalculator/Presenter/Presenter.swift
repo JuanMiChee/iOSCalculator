@@ -221,5 +221,6 @@ final class CalculatorPresenter: Presenter {
         isAnOperationSelecter = true
         operation = .sumatory
     }
+  
 }
 
