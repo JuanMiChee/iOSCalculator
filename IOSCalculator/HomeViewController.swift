@@ -50,13 +50,9 @@ class HomeViewController: UIViewController {
     
     
     private var total: Double = 0
-    private var temp: Double = 0
     private var isAnOperationSelecter: Bool = false
-    //private var thereAreSelectedDecimals: Bool = false
     private var operation: operationType = .none
-    
     private let whatsYourDecimalSeparator = Locale.current.decimalSeparator!
-    private let maxLabelLenght = 9
     private let kTotal = "total"
 
     
@@ -159,7 +155,6 @@ class HomeViewController: UIViewController {
 
         decimalButton.setTitle(whatsYourDecimalSeparator, for: .normal)
         total = UserDefaults.standard.double(forKey: kTotal)
-        result()
     }
     
     
@@ -228,44 +223,6 @@ class HomeViewController: UIViewController {
         
         presenter.handleNumberSelection(number: sender.tag)
         sender.shine()
-    }
-    
-    private func result(){
-        switch operation {
-        
-        case .none:
-            //no hacer nada
-            break
-        case .sumatory:
-            total = total + temp
-            break
-        case .substraction:
-            total = total - temp
-            break
-        case .multiplication:
-            total = total * temp
-            break
-        case .division:
-            total = total / temp
-            break
-        case .percent:
-            temp = temp / 100
-            total = temp
-            break
-        }
-        
-        if let currentTotal = auxTotalFormatter.string(from: NSNumber(value: total)), currentTotal.count > maxLabelLenght{
-            resultLabel.text = printScientificFormatter.string(from: NSNumber(value: total))
-        }else{
-            resultLabel.text = printFormatter.string(from: NSNumber(value: total))
-
-        }
-        
-        operation = .none
-        
-        selectVisualOperator()
-        
-        print("TOTAL:\(total)")
     }
     
     func selectVisualOperator(){
