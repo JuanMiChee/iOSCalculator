@@ -19,8 +19,7 @@ class CalculatorPresenterTests: XCTestCase {
     }
 
     func testExample() throws {
-        let calculateResult = MockCalculateResult()
-        let presenter =  CalculatorPresenter(calculateResult: calculateResult)
+        let presenter =  CalculatorPresenter()
         let mockView = MockView()
         presenter.view =  mockView
 
@@ -29,12 +28,7 @@ class CalculatorPresenterTests: XCTestCase {
         presenter.handleNumberSelection(number: 1)
         
         
-        if mockView.receivedResult == "2"{
-            print("si")
-        }else{
-            print("error")
-        }
-        
+        XCTAssertEqual(mockView.receivedResult, "2")
     }
 
 }
