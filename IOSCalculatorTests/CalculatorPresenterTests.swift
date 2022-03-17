@@ -10,25 +10,31 @@ import XCTest
 
 class CalculatorPresenterTests: XCTestCase {
 
+    var presenter: CalculatorPresenter!
+    var mockView: MockView!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        presenter = CalculatorPresenter()
+        mockView = MockView()
+        presenter.view = mockView
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        let presenter =  CalculatorPresenter()
-        let mockView = MockView()
-        presenter.view =  mockView
-
+    func testsumatory() throws {
         presenter.handleNumberSelection(number: 1)
         presenter.handleSumatoryButton()
         presenter.handleNumberSelection(number: 1)
-        
+        presenter.handleEqualsButton()
         
         XCTAssertEqual(mockView.receivedResult, "2")
     }
-
+    
+    func testRepeatingSumatory() throws {
+        presenter.handleNumberSelection(number: 2)
+        presenter.handleSumatoryButton()
+        presenter.handleNumberSelection(number: 1)
+        presenter.handleEqualsButton()
+        presenter.handleSumatoryButton()
+        
+        XCTAssertEqual(mockView.receivedResult, "3")
+    }
 }

@@ -183,6 +183,7 @@ final class CalculatorPresenter: Presenter {
     
     func handleEqualsButton() {
         result()
+        operation = .none
     }
     
     func handleDivisionButton() {
