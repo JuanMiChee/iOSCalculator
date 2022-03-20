@@ -110,8 +110,7 @@ class HomeViewController: UIViewController {
     
     //MARK: inicialization
     init() {
-        let calculateResultUsecase = CalculateResult()
-        presenter = CalculatorPresenter(calculateResult: calculateResultUsecase)
+        presenter = CalculatorPresenter()
         
         super.init(nibName: nil, bundle: nil)
         presenter.view = self
@@ -164,21 +163,21 @@ class HomeViewController: UIViewController {
         //MARK: buttonActions
     @IBAction func sumatoryButtonAction(_ sender: UIButton) {
         sumatoryButton.isEnabled = falseIndicator
-        presenter.handleSumatoryButton(number: sender.tag)
+        presenter.handleSumatoryButton()
         sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
     
     @IBAction func subtractionButtonAction(_ sender: UIButton) {
         subtractionButton.isEnabled = falseIndicator
-        presenter.handleSubtractionButton(number: sender.tag)
+        presenter.handleSubtractionButton()
         sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
     
     @IBAction func multiplicationButtonAction(_ sender: UIButton) {
         multiplicationButton.isEnabled = falseIndicator
-        presenter.handleMultiplicationButton(number: sender.tag)
+        presenter.handleMultiplicationButton()
         sender.replaceBackgroundColor(_selected: true)
         sender.shine()
     }
@@ -186,26 +185,26 @@ class HomeViewController: UIViewController {
     @IBAction func divisionButtonAction(_ sender: UIButton) {
         divisionButton.isEnabled = falseIndicator
         sender.replaceBackgroundColor(_selected: true)
-        presenter.handleDivisionButton(number: sender.tag)
+        presenter.handleDivisionButton()
         sender.shine()
     }
     
     @IBAction func equalsButtonAction(_ sender: UIButton) {
         equalsButton.isEnabled = falseIndicator
-        presenter.handleEqualsButton(number: sender.tag)
+        presenter.handleEqualsButton()
         sender.shine()
     }
     
     @IBAction func perecentageButtonAction(_ sender: UIButton) {
-        presenter.handlePercentageButton(number: sender.tag)
+        presenter.handlePercentageButton()
         sender.shine()
     }
     @IBAction func moreOrLessButtonAction(_ sender: UIButton) {
-        presenter.handleMoreOrLessButton(number: sender.tag)
+        presenter.handleMoreOrLessButton()
         sender.shine()
     }
     @IBAction func ACButtonAction(_ sender: UIButton) {
-        presenter.handleACButton(number: sender.tag)
+        presenter.handleACButton()
         sender.shine()
         
     }

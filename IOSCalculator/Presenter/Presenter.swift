@@ -1,20 +1,5 @@
 import Foundation
 
-protocol Presenter {
-    var view: View? { get set }
-    
-    func handleNumberSelection(number: Int)
-    func handleDecimalSelection(mainLabelText: String?)
-    func handleACButton(number: Int)
-    func handleMoreOrLessButton(number: Int)
-    func handlePercentageButton(number: Int)
-    func handleEqualsButton(number: Int)
-    func handleDivisionButton(number: Int)
-    func handleMultiplicationButton(number: Int)
-    func handleSubtractionButton(number: Int)
-    func handleSumatoryButton(number: Int)
-}
-
 final class CalculatorPresenter: Presenter {
     
     private let auxFormatter: NumberFormatter = {
@@ -64,10 +49,9 @@ final class CalculatorPresenter: Presenter {
     }()
     
     weak var view: View?
-    private let calculateResult: CalculateResultProtocol
-
     
     private var temp: Double = 0
+    private var garbageCeroCollector: Double = 0
     private var isAnOperationSelecter: Bool = false
     private let maxLabelLenght = 9
     private var total: Double = 0
@@ -75,15 +59,33 @@ final class CalculatorPresenter: Presenter {
     private let whatsYourDecimalSeparator = Locale.current.decimalSeparator!
     private var operation: OperationType = .none
 
-    init(calculateResult: CalculateResultProtocol) {
-        self.calculateResult = calculateResult
-    }
-
     private func result(){
         
-        let result = calculateResult.execute(operationType: operation, temp: temp)
+        switch operation {
         
-        if let currentTotal = auxTotalFormatter.string(from: NSNumber(value: result)), currentTotal.count > maxLabelLenght{
+        case .none:
+            //no hacer nada
+            break
+        case .sumatory:
+            total = total + temp
+            break
+        case .substraction:
+            total = total - temp
+            break
+        case .multiplication:
+            total = total * temp
+            break
+        case .division:
+            total = total / temp
+            break
+        case .percent:
+//            garbageCeroCollector = temp / 100
+//            total = garbageCeroCollector
+            total = total / 100
+            break
+        }
+        
+        if let currentTotal = auxTotalFormatter.string(from: NSNumber(value: temp)), currentTotal.count > maxLabelLenght{
             view?.display(result: printScientificFormatter.string(from: NSNumber(value: total))!)
         }else{
             view?.display(result:printFormatter.string(from: NSNumber(value: total))!)
@@ -163,16 +165,19 @@ final class CalculatorPresenter: Presenter {
 
     }
     
-    func handleACButton(number: Int) {
+    func handleACButton() {
         clear()
     }
     
-    func handleMoreOrLessButton(number: Int) {
+    func handleMoreOrLessButton() {
         temp = temp * (-1)
         view?.display(result: printFormatter.string(from: NSNumber(value: temp))!)
     }
     
-    func handlePercentageButton(number: Int) {
+    func handlePercentageButton() {
+        handleEqualsButton()
+        print(total)
+        
         if operation != .percent{
             result()
         }
@@ -181,11 +186,18 @@ final class CalculatorPresenter: Presenter {
             result()
     }
     
-    func handleEqualsButton(number: Int) {
-        result()
+    func handleEqualsButton() {
+        
+        if operation == .percent{
+            //temp = temp * 100
+            operation = .none
+        }else{
+            result()
+            operation = .none
+        }
     }
     
-    func handleDivisionButton(number: Int) {
+    func handleDivisionButton() {
         if operation != .none{
             result()
         }
@@ -195,7 +207,7 @@ final class CalculatorPresenter: Presenter {
         
     }
     
-    func handleMultiplicationButton(number: Int) {
+    func handleMultiplicationButton() {
         if operation != .none{
             result()
         }
@@ -204,7 +216,7 @@ final class CalculatorPresenter: Presenter {
         operation = .multiplication
     }
     
-    func handleSubtractionButton(number: Int) {
+    func handleSubtractionButton() {
         if operation != .none{
             result()
         }
@@ -213,7 +225,7 @@ final class CalculatorPresenter: Presenter {
         operation = .substraction
     }
     
-    func handleSumatoryButton(number: Int) {
+    func handleSumatoryButton() {
         if operation != .none{
             result()
         }
