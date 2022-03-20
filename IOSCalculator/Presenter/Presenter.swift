@@ -79,8 +79,9 @@ final class CalculatorPresenter: Presenter {
             total = total / temp
             break
         case .percent:
-            garbageCeroCollector = temp / 100
-            total = garbageCeroCollector
+//            garbageCeroCollector = temp / 100
+//            total = garbageCeroCollector
+            total = total / 100
             break
         }
         
@@ -174,6 +175,9 @@ final class CalculatorPresenter: Presenter {
     }
     
     func handlePercentageButton() {
+        handleEqualsButton()
+        print(total)
+        
         if operation != .percent{
             result()
         }
@@ -185,11 +189,12 @@ final class CalculatorPresenter: Presenter {
     func handleEqualsButton() {
         
         if operation == .percent{
-            temp = temp * 100
+            //temp = temp * 100
+            operation = .none
+        }else{
+            result()
+            operation = .none
         }
-        
-        result()
-        operation = .none
     }
     
     func handleDivisionButton() {

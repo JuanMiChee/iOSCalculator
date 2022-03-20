@@ -135,7 +135,7 @@ class CalculatorPresenterTests: XCTestCase {
         presenter.handleEqualsButton()
         presenter.handlePercentageButton()
         
-        XCTAssertEqual(mockView.receivedResult, "0.5")
+        XCTAssertEqual(mockView.receivedResult, "0.55")
     }
     
     
