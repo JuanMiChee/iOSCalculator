@@ -51,7 +51,6 @@ final class CalculatorPresenter: Presenter {
     weak var view: View?
     
     private var temp: Double = 0
-    private var garbageCeroCollector: Double = 0
     private var isAnOperationSelecter: Bool = false
     private let maxLabelLenght = 9
     private var total: Double = 0
@@ -79,9 +78,8 @@ final class CalculatorPresenter: Presenter {
             total = total / temp
             break
         case .percent:
-//            garbageCeroCollector = temp / 100
-//            total = garbageCeroCollector
-            total = total / 100
+            total = total * temp
+            temp = temp * 100
             break
         }
         
@@ -175,26 +173,16 @@ final class CalculatorPresenter: Presenter {
     }
     
     func handlePercentageButton() {
-        handleEqualsButton()
-        print(total)
-        
-        if operation != .percent{
-            result()
-        }
+        temp = operation == .none ? total / 100 : temp / 100
+        view?.display(result:printFormatter.string(from: NSNumber(value: temp))!)
+
         isAnOperationSelecter = true
         operation = .percent
-            result()
     }
     
     func handleEqualsButton() {
-        
-        if operation == .percent{
-            //temp = temp * 100
-            operation = .none
-        }else{
-            result()
-            operation = .none
-        }
+        result()
+        operation = .none
     }
     
     func handleDivisionButton() {
